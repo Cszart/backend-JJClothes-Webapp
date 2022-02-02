@@ -1,10 +1,9 @@
 import * as mongoose from 'mongoose';
 
-export const category_Schema = new mongoose.Schema({
-type: { type: String, required: true },
-}
+export const Category_Schema = new mongoose.Schema({
+  name: { type: String, required: true },
+});
 
-export class Product_DATA extends mongoose.Document {
-    id?: string;
-  title: string;  
+export class Category_DTO extends mongoose.Document {
+  name: string;
 }

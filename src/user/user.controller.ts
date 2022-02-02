@@ -9,22 +9,31 @@ import {
 } from '@nestjs/common';
 
 //swagger
-import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 // User
 import { User_DTO } from './user.model';
 import { User_Service } from './user.service';
 
+@ApiTags('Users')
 @Controller('user')
 export class User_Controller {
   constructor(private readonly user_service: User_Service) {}
 
   // Add user
-  @Post('/add_user')
+  @Post('/create_user')
   @ApiCreatedResponse({ description: 'Create a user in database' })
-  async add_user(@Body() data: User_DTO) {
-    const add_response = await this.user_service.insert_user(data);
+  async create_user(@Body() data: User_DTO) {
+    const add_response = await this.user_service.create_user(data);
     return add_response;
+  }
+
+  // Update user
+  @Patch('/update_user/:id')
+  @ApiOkResponse({ description: 'Update an user information' })
+  async update_user(@Param('id') user_id: string, @Body() data: User_DTO) {
+    const update_response = await this.user_service.update_user(user_id, data);
+    return update_response;
   }
 
   // Get all users
@@ -41,14 +50,6 @@ export class User_Controller {
   async get_user_byID(@Param('id') user_id: string) {
     const byID_response = await this.user_service.find_byID(user_id);
     return byID_response;
-  }
-
-  // Update user
-  @Patch('/update_user/:id')
-  @ApiOkResponse({ description: 'Update an user information' })
-  async update_user(@Param('id') user_id: string, @Body() data: User_DTO) {
-    const update_response = await this.user_service.update_user(user_id, data);
-    return update_response;
   }
 
   // Delete user

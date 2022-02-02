@@ -1,4 +1,13 @@
 // Table
+interface shopping_cart {
+  id: string;
+  subtotal: number;
+
+  // relations
+  user_cart: user;
+  items: product_item[];
+}
+
 interface user {
   id: string;
   firstname: string;
@@ -43,16 +52,16 @@ interface product_item {
 }
 
 interface bill {
-  id: string;
+  // User data
   fullName: string;
   email: string;
   phoneNumber: string;
-  shippingAddress: string;
-  country: string;
-  stateProvidence: string;
+
+  // direction
+  state: string;
   city: string;
-  zipCode: string;
-  courier: string;
+  street: string;
+  zip_code: string;
 }
 
 interface payment {
@@ -73,14 +82,5 @@ interface order {
   // relations
   bill_info: bill;
   payment_info: payment;
-  items: product_item[];
-}
-
-interface shopping_cart {
-  id: string;
-  subtotal: number;
-
-  // relations
-  user_cart: user;
   items: product_item[];
 }

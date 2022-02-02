@@ -1,22 +1,51 @@
 import * as mongoose from 'mongoose';
 
+// Product
 export const Product_Schema = new mongoose.Schema({
   title: { type: String, required: true },
   price: { type: Number, required: true },
   discount: { type: Number, required: false },
   description: { type: String, required: true },
-  warranty: { type: String, required: true },
-  gallery: { type: String, required: true },
+  gallery: [{ type: String, required: false }],
   stock: { type: Number, required: true },
-})
 
-export class Product_DATA extends mongoose.Document {
-  id?: string;
+  // Relations
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
+});
+
+export class Product_DTO extends mongoose.Document {
   title: string;
   price: number;
-  discount: number;
+  discount?: number;
   description: string;
-  warranty: string;
   gallery: string[];
   stock: number;
+
+  // Relations
+  category: string;
+  tags: string[];
+}
+
+// Product item
+export const Product_Item_Schema = new mongoose.Schema({
+  quantity: { type: Number, required: true },
+
+  // Relations
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true,
+  },
+});
+
+export class Product_Item_DTO extends mongoose.Document {
+  quantity: number;
+
+  // Relations
+  product: string;
 }
