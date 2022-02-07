@@ -9,6 +9,7 @@ export const Product_Schema = new mongoose.Schema({
   description: { type: String, required: true },
   composition: [{ type: String, required: false }],
   gallery: [{ type: String, required: false }],
+  initial_stock: { type: Number, required: false },
   stock: { type: Number, required: true },
 
   // Relations
