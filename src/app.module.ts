@@ -13,6 +13,9 @@ import { Category_Module } from './category/category.module';
 import { Product_Module } from './product/product.module';
 import { ShoppingCart_Module } from './shopping_cart/shoppingCart.module';
 import { Order_Module } from './order/order.module';
+import { ReportsController } from './reports/reports.controller';
+import { ReportsService } from './reports/reports.service';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -26,8 +29,9 @@ import { Order_Module } from './order/order.module';
     Tag_Module,
     Category_Module,
     Order_Module,
+    ReportsModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [ReportsController],
+  providers: [ReportsService],
 })
 export class AppModule {}
