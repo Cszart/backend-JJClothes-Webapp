@@ -7,6 +7,7 @@ import {
 export const User_Schema = new mongoose.Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
+  email: { type: String, required: true },
   password: { type: String, required: true, default: '123' },
   birth_date: { type: Date, required: true },
   rol: { type: String, required: true, default: 'natural' },
@@ -22,6 +23,7 @@ export const User_Schema = new mongoose.Schema({
 export class User_DTO extends mongoose.Document {
   firstname: string;
   lastname: string;
+  email: string;
   password: string;
   birth_date: Date;
   rol: string;

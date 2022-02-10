@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import * as mongoose from 'mongoose';
 
 // DTO
 import { User_DTO } from './user.model';
@@ -74,6 +73,25 @@ export class User_Service {
       // no encontro nada en la bd
       throw new NotFoundException('Could not find product');
     }
+  }
+
+  // FUNCION obtener usuario por email
+  async find_byEmail(user_email: string) {
+    //buscar en bd
+    const response_byEmail = await this.userModel.find({
+      email: user_email,
+    });
+
+    const response_byEmail_populated = await response_byEmail[0].populate(
+      'shoppingCart',
+    );
+
+    console.log(
+      '<- User_Service, get user by email response ->',
+      response_byEmail_populated,
+    );
+
+    return response_byEmail_populated;
   }
 
   // FUNCION actualizar info de usuario

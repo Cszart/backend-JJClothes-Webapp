@@ -13,6 +13,7 @@ import { Category_Module } from './category/category.module';
 import { Product_Module } from './product/product.module';
 import { ShoppingCart_Module } from './shopping_cart/shoppingCart.module';
 import { Order_Module } from './order/order.module';
+import { Auth_Module } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Order_Module } from './order/order.module';
     Tag_Module,
     Category_Module,
     Order_Module,
+    Auth_Module,
   ],
   controllers: [],
   providers: [],

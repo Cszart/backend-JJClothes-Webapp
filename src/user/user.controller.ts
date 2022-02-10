@@ -52,6 +52,14 @@ export class User_Controller {
     return byID_response;
   }
 
+  // Get user by id
+  @Get('/get_user_byEmail/:email')
+  @ApiOkResponse({ description: 'Get an user by email' })
+  async get_user_byEmail(@Param('email') user_email: string) {
+    const byEmail_response = await this.user_service.find_byEmail(user_email);
+    return byEmail_response;
+  }
+
   // Delete user
   @Delete(':id')
   @ApiOkResponse({ description: 'Delete an user from database' })

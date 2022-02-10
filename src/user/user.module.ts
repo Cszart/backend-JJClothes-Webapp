@@ -28,5 +28,6 @@ import { Product_Service } from 'src/product/product.service';
   ],
   controllers: [User_Controller, ShoppingCart_Controller, Product_Controller],
   providers: [User_Service, ShoppingCart_Service, Product_Service],
+  exports: [User_Service],
 })
 export class User_Module {}

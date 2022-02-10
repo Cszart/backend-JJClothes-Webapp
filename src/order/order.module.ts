@@ -9,7 +9,7 @@ import { Order_Service } from './order.service';
 import { Order_Schema } from './order.model';
 
 // Product
-import { Product_Service } from 'src/product/product.service';
+import * as productService from 'src/product/product.service';
 import { Product_Schema } from 'src/product/product.model';
 import { Product_Controller } from 'src/product/product.controller';
 
@@ -21,6 +21,6 @@ import { Product_Controller } from 'src/product/product.controller';
     ]),
   ],
   controllers: [Order_Controller, Product_Controller],
-  providers: [Order_Service, Product_Service],
+  providers: [Order_Service, productService.Product_Service],
 })
 export class Order_Module {}
