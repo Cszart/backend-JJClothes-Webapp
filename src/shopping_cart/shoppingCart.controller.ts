@@ -6,10 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 
 //swagger
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 
 // ShoppingCart
 import { ShoppingCart_DTO } from './shoppingCart.model';
@@ -21,6 +28,8 @@ export class ShoppingCart_Controller {
   constructor(private readonly shoppingCart_service: ShoppingCart_Service) {}
 
   // Add shoppingCart
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post('/create_shoppingCart')
   @ApiCreatedResponse({ description: 'Create a shoppingCart in database' })
   async create_shoppingCart(@Body() data: ShoppingCart_DTO) {
@@ -31,6 +40,8 @@ export class ShoppingCart_Controller {
   }
 
   // Update shoppingCart
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch('/update_shoppingCart/:id')
   @ApiOkResponse({ description: 'Update an shoppingCart information' })
   async update_shoppingCart(
@@ -63,6 +74,8 @@ export class ShoppingCart_Controller {
   }
 
   // Delete shoppingCart
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOkResponse({ description: 'Delete an shoppingCart from database' })
   async delete_shoppingCart(@Param('id') shoppingCart_id: string) {
