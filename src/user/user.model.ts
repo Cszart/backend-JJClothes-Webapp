@@ -1,8 +1,5 @@
 import * as mongoose from 'mongoose';
-import {
-  ShoppingCart_DTO,
-  ShoppingCart_Schema,
-} from 'src/shopping_cart/shoppingCart.model';
+import { ShoppingCart_DTO } from 'src/shopping_cart/shoppingCart.model';
 
 export const User_Schema = new mongoose.Schema({
   firstname: { type: String, required: true },
@@ -31,3 +28,16 @@ export class User_DTO extends mongoose.Document {
   // Relations
   shoppingCart: ShoppingCart_DTO;
 }
+
+export type User_Type = {
+  _id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  birth_date: Date;
+  rol: string;
+
+  // Relations
+  shoppingCart: ShoppingCart_DTO;
+};

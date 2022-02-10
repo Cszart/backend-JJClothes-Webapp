@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('JCC clothes API')
     .setDescription('Backend API')
     .setVersion('1.0.0')
+    .addBearerAuth()
     .build();
 
   // swagger create document

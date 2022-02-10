@@ -76,22 +76,36 @@ export class User_Service {
   }
 
   // FUNCION obtener usuario por email
-  async find_byEmail(user_email: string) {
-    //buscar en bd
-    const response_byEmail = await this.userModel.find({
-      email: user_email,
-    });
+  async find_byEmail(user_email: string): Promise<
+    | (User_DTO & {
+        _id: any;
+      })
+    | undefined
+  > {
+    try {
+      //buscar en bd
+      const response_byEmail = await this.userModel.find({
+        email: user_email,
+      });
 
-    const response_byEmail_populated = await response_byEmail[0].populate(
-      'shoppingCart',
-    );
+      if (response_byEmail.length > 0) {
+        const response_byEmail_populated = await response_byEmail[0].populate(
+          'shoppingCart',
+        );
 
-    console.log(
-      '<- User_Service, get user by email response ->',
-      response_byEmail_populated,
-    );
+        console.log(
+          '\n\n\n\n\n\n\n<- User_Service, get user by email response ->',
+          response_byEmail_populated,
+        );
 
-    return response_byEmail_populated;
+        return response_byEmail_populated;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      // no encontro nada en la bd
+      return null;
+    }
   }
 
   // FUNCION actualizar info de usuario
