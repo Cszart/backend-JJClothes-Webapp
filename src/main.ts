@@ -18,6 +18,7 @@ async function bootstrap() {
   const swag_document = SwaggerModule.createDocument(app, swag_options);
   SwaggerModule.setup('api', app, swag_document);
 
+  app.enableCors();
   await app.listen(process.env.PORT || 4000);
 }
 bootstrap();

@@ -29,6 +29,7 @@ export class Product_DTO extends mongoose.Document {
   description: string;
   composition: string[];
   gallery: string[];
+  initial_stock: number;
   stock: number;
 
   // Relations
