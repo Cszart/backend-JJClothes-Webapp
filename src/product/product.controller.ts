@@ -61,4 +61,11 @@ export class Product_Controller {
     );
     return delete_response;
   }
+  // Get new products
+  @Get('/get_new_products')
+  @ApiOkResponse({ description: 'Get the new products in database' })    
+  async get_all_products(){
+    const new_products_response = await this.product_service.find_new_products(();
+    return new_products_response
+  }
 }

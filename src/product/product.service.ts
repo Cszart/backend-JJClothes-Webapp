@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConsoleLogger, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product_DTO } from './product.model';
@@ -76,5 +76,16 @@ export class Product_Service {
     }
 
     return response_delete;
+  }
+  //otener todos los productos nuevos
+  async find_new_products() {
+    try {
+      //buscar en base de datos
+      cons new_products= await this.productModel.find({new_item:true});
+console.log('new products',new_products);
+return new_products
+    } catch (error) {
+      throw new NotFoundException('Could not find products');
+    }
   }
 }
