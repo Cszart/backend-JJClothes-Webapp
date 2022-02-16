@@ -9,7 +9,12 @@ import {
 
 @Injectable()
 export class ReportsService {
-
-
+  constructor(
+    @InjectModel('Product') private readonly productModel: Model<Product_DTO>,
+  ) {}
+  //obtener productos mas vendidos por categorias
+  async CategoryReport(name:string, date:string) {
+    const new_products= await this.productModel.find({:true});
+  }
 
 }

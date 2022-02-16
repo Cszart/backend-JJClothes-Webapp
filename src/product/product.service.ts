@@ -81,7 +81,7 @@ export class Product_Service {
   async find_new_products() {
     try {
       //buscar en base de datos
-      cons new_products= await this.productModel.find({new_item:true});
+      const new_products= await this.productModel.find({new_item:true});
 console.log('new products',new_products);
 return new_products
     } catch (error) {

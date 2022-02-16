@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { query } from 'express';
+import { Date, Model, Mongoose } from 'mongoose';
 
 // DTOs
 import { Order_DTO } from './order.model';
@@ -130,4 +131,17 @@ export class Order_Service {
 
     return response_delete;
   }
+  //obteniendo orden por rango de fechas
+  async find_date(stardDate: Date, endDate: Date) {
+    try {
+      const response_by_date= await this.orderModel.find(
+        {purchase_date{$gte:stardDate}, purchase_date{$lte: endDate}} 
+      ) 
+      console.log('ordenes por fecha ', response_by_date)
+      return ersponse_by_date
+    } catch (error) {
+      throw new NotFoundException('Could not find order');
+    }
+    
+}  
 }
