@@ -58,6 +58,18 @@ export class Product_Service {
     }
   }
 
+  //FUNCION obtener todos los productos nuevos
+  async find_new_products() {
+    try {
+      //buscar en base de datos
+      const new_products = await this.productModel.find({ new_item: true });
+      console.log('<- Product_Service, new products ->', new_products);
+      return new_products;
+    } catch (error) {
+      throw new NotFoundException('Could not find products');
+    }
+  }
+
   // FUNCION borrar un producto de la bd
   async delete_product(product_id: string | number) {
     // buscar producto por id
@@ -76,16 +88,5 @@ export class Product_Service {
     }
 
     return response_delete;
-  }
-  //otener todos los productos nuevos
-  async find_new_products() {
-    try {
-      //buscar en base de datos
-      const new_products= await this.productModel.find({new_item:true});
-console.log('new products',new_products);
-return new_products
-    } catch (error) {
-      throw new NotFoundException('Could not find products');
-    }
   }
 }

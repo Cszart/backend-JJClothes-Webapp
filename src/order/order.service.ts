@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { query } from 'express';
-import { Date, Model, Mongoose } from 'mongoose';
+import { Date, Model } from 'mongoose';
 
 // DTOs
 import { Order_DTO } from './order.model';
@@ -43,6 +42,9 @@ export class Order_Service {
 
     // Cambiar sub total
     response_insert.subtotal = await this.calculate_subtotal(response_insert);
+
+    // Agregar fecha de creacion
+    response_insert.purchase_date = new Date();
 
     // Guardar
     await response_insert.save();
@@ -115,7 +117,23 @@ export class Order_Service {
     }
   }
 
-  // FUNCION borrar un ordero de la bd
+  // FUNCION orden por rango de fechas
+  async find_date_range(startDate: string, endDate: string) {
+    try {
+      const response_by_date = await this.orderModel
+        .find({
+          purchase_date: { $gte: new Date(startDate), $lt: new Date(endDate) },
+        })
+        .exec();
+
+      console.log('<- Order_Service, find date range ->', response_by_date);
+      return response_by_date;
+    } catch (error) {
+      throw new NotFoundException('Could not find order', error);
+    }
+  }
+
+  // FUNCION borrar un order de la bd
   async delete_order(order_id: string | number) {
     // buscar ordero por id
     const response_delete = await this.orderModel
@@ -131,17 +149,4 @@ export class Order_Service {
 
     return response_delete;
   }
-  //obteniendo orden por rango de fechas
-  async find_date(stardDate: Date, endDate: Date) {
-    try {
-      const response_by_date= await this.orderModel.find(
-        {purchase_date{$gte:stardDate}, purchase_date{$lte: endDate}} 
-      ) 
-      console.log('ordenes por fecha ', response_by_date)
-      return ersponse_by_date
-    } catch (error) {
-      throw new NotFoundException('Could not find order');
-    }
-    
-}  
 }

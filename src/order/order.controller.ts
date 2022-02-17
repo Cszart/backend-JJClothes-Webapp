@@ -62,6 +62,20 @@ export class Order_Controller {
     return byID_response;
   }
 
+  // Get order by id
+  @Get('/get_order_byDateRange/:startDate/:endDate')
+  @ApiOkResponse({ description: 'Get an order by date range' })
+  async get_order_byDateRange(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ) {
+    const byDate_response = await this.order_service.find_date_range(
+      startDate,
+      endDate,
+    );
+    return byDate_response;
+  }
+
   // Delete order
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

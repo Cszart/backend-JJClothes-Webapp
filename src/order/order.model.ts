@@ -48,9 +48,9 @@ export class Payment_DTO extends mongoose.Document {
 
 // Order
 export const Order_Schema = new mongoose.Schema({
-  purchase_date: { type: Date, required: true },
+  purchase_date: { type: Date, required: false },
   shipping_cost: { type: Number, required: true, default: 0 },
-  subtotal: { type: Number, required: true, default: 0 },
+  subtotal: { type: Number, required: false, default: 0 },
 
   // Relations
   user: {
