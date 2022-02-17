@@ -18,7 +18,7 @@ export class Tag_Service {
     // Guardar en bd
     const response_insert = await newTag.save();
 
-    console.log('<- Tag_Service, inser Tag response ->', response_insert);
+    console.log('\n\n\n<- Tag_Service, inser Tag response ->', response_insert);
     return response_insert;
   }
 
@@ -27,7 +27,10 @@ export class Tag_Service {
     // buscar en bd
     const response_getAll = await this.tagModel.find().exec();
 
-    console.log('<- Tag_Service, get all Tag response ->', response_getAll);
+    console.log(
+      '\n\n\n<- Tag_Service, get all Tag response ->',
+      response_getAll,
+    );
     return response_getAll;
   }
 
@@ -37,8 +40,35 @@ export class Tag_Service {
       //buscar en bd
       const response_byID = await this.tagModel.findById(tag_id);
 
-      console.log('<- Tag_Service, get Tag by id response ->', response_byID);
+      console.log(
+        '\n\n\n<- Tag_Service, get Tag by id response ->',
+        response_byID,
+      );
       return response_byID;
+    } catch (error) {
+      // no encontro nada en la bd
+      throw new NotFoundException('Could not find product');
+    }
+  }
+
+  // FUNCION obtener tag por id
+  async find_byName(tag_name: string) {
+    try {
+      //buscar en bd
+      const response_byName = await this.tagModel
+        .find({
+          name: {
+            $regex: tag_name,
+            $options: 'i',
+          },
+        })
+        .exec();
+
+      console.log(
+        '\n\n\n<- Tag_Service, get Tag by name response ->',
+        response_byName,
+      );
+      return response_byName;
     } catch (error) {
       // no encontro nada en la bd
       throw new NotFoundException('Could not find product');
@@ -52,7 +82,10 @@ export class Tag_Service {
       .deleteOne({ _id: tag_id })
       .exec();
 
-    console.log('<- Tag_Service, delete Tag response ->', response_delete);
+    console.log(
+      '\n\n\n<- Tag_Service, delete Tag response ->',
+      response_delete,
+    );
 
     if (response_delete.deletedCount === 0) {
       // no encontro nada en la bd

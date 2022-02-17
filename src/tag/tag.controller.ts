@@ -50,6 +50,14 @@ export class Tag_Controller {
     return byID_response;
   }
 
+  // Get tag by name
+  @Get('/get_tag_byName/:name')
+  @ApiOkResponse({ description: 'Get an tag by name' })
+  async get_tag_byName(@Param('name') tag_name: string) {
+    const byName_response = await this.tag_Service.find_byName(tag_name);
+    return byName_response;
+  }
+
   // Delete tag
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

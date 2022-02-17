@@ -12,5 +12,6 @@ import { Tag_Schema } from './tag.model';
   imports: [MongooseModule.forFeature([{ name: 'Tag', schema: Tag_Schema }])],
   controllers: [Tag_Controller],
   providers: [Tag_Service],
+  exports: [Tag_Service],
 })
 export class Tag_Module {}
