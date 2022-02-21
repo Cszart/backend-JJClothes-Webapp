@@ -19,7 +19,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 
 // Product
-import { Product_DTO } from './product.model';
+import { Product_DTO, Related_Products_DTO } from './product.model';
 import { Product_Service } from './product.service';
 
 @ApiTags('Products')
@@ -61,7 +61,7 @@ export class Product_Controller {
     return byID_response;
   }
 
-  // Get product by name
+  // Get product by category
   @Get('/get_product_byCategory/:category_id')
   @ApiOkResponse({ description: 'Get an product by tag' })
   async get_product_byCategory(@Param('category_id') category_id: string) {
@@ -71,7 +71,7 @@ export class Product_Controller {
     return byID_response;
   }
 
-  // Get product by name
+  // Get product by tag
   @Get('/get_product_byTag/:name')
   @ApiOkResponse({ description: 'Get an product by tag' })
   async get_product_byTag(@Param('name') name: string) {
@@ -87,7 +87,7 @@ export class Product_Controller {
     return byID_response;
   }
 
-  // Get product by name
+  // Get product by tag or name
   @Get('/get_product_by_tag_or_name/:name')
   @ApiOkResponse({ description: 'Get an product by name' })
   async get_product_by_tag_or_name(@Param('name') name: string) {
@@ -102,6 +102,18 @@ export class Product_Controller {
     const new_products_response =
       await this.product_service.find_new_products();
     return new_products_response;
+  }
+
+  // Get related products
+  @Post('/get_related_products')
+  @ApiOkResponse({ description: 'Get the related products in database' })
+  async get_related_products(@Body() data: Related_Products_DTO) {
+    const related_products_response =
+      await this.product_service.find_related_products(
+        data.category_id,
+        data.tags_id,
+      );
+    return related_products_response;
   }
 
   // Delete product

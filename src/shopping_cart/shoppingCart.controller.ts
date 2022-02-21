@@ -22,6 +22,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 import { ShoppingCart_DTO } from './shoppingCart.model';
 import { ShoppingCart_Service } from './shoppingCart.service';
 
+import { Product_Item_DTO } from 'src/product/product.model';
+
 @ApiTags('ShoppingCart')
 @Controller('shoppingCart')
 export class ShoppingCart_Controller {
@@ -52,6 +54,23 @@ export class ShoppingCart_Controller {
       shoppingCart_id,
       data,
     );
+    return update_response;
+  }
+
+  // Add prodcut to shoppingCart
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Patch('/add_product_shoppingCart/:id')
+  @ApiOkResponse({ description: 'Add a product to shoppingCart' })
+  async add_product_shoppingCart(
+    @Param('id') shoppingCart_id: string,
+    @Body() data: Product_Item_DTO,
+  ) {
+    const update_response =
+      await this.shoppingCart_service.add_product_shoppingCart(
+        shoppingCart_id,
+        data,
+      );
     return update_response;
   }
 

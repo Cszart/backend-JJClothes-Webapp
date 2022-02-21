@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Date, Model } from 'mongoose';
+import { Model } from 'mongoose';
 
 // DTOs
 import { Order_DTO } from './order.model';
+import { Product_DTO } from 'src/product/product.model';
 
 @Injectable()
 export class Order_Service {
@@ -11,6 +12,8 @@ export class Order_Service {
   constructor(
     @InjectModel('Order')
     private readonly orderModel: Model<Order_DTO>,
+
+    @InjectModel('Product') private readonly productModel: Model<Product_DTO>,
   ) {}
 
   // Funcion calcular el subtotal
@@ -45,6 +48,14 @@ export class Order_Service {
 
     // Agregar fecha de creacion
     response_insert.purchase_date = new Date();
+
+    // Se descuenta el stock de los productos
+    response_insert.items.map(async (item) => {
+      //buscar en bd
+      const response_productID = await this.productModel.findById(item.product);
+      response_productID.stock = response_productID.stock - item.quantity;
+      response_productID.save();
+    });
 
     // Guardar
     await response_insert.save();

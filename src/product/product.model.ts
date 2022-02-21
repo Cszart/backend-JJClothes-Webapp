@@ -55,3 +55,9 @@ export class Product_Item_DTO extends mongoose.Document {
   // Relations
   product: string;
 }
+
+// Para las querys
+export class Related_Products_DTO extends mongoose.Document {
+  category_id: string;
+  tags_id: string[];
+}

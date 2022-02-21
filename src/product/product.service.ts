@@ -211,6 +211,37 @@ export class Product_Service {
     }
   }
 
+  //FUNCION obtener productos relacionados
+  async find_related_products(category_id: string, tags_id: string[]) {
+    try {
+      // Buscar por categoria o por tag
+      const response_related = await this.productModel
+        .find({
+          $or: [
+            {
+              category: category_id,
+            },
+            {
+              tags: {
+                $in: tags_id,
+              },
+            },
+          ],
+        })
+        .populate('category')
+        .populate('tags')
+        .exec();
+
+      console.log(
+        '\n\n\n<- Product_Service, related products ->',
+        response_related,
+      );
+      return response_related;
+    } catch (error) {
+      throw new NotFoundException('Could not find products');
+    }
+  }
+
   // FUNCION borrar un producto de la bd
   async delete_product(product_id: string | number) {
     // buscar producto por id

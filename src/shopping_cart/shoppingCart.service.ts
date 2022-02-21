@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 
 // DTOs
 import { ShoppingCart_DTO } from './shoppingCart.model';
+import { Product_Item_DTO } from 'src/product/product.model';
 
 @Injectable()
 export class ShoppingCart_Service {
@@ -73,6 +74,35 @@ export class ShoppingCart_Service {
       '<- ShoppingCart_Service, update ShoppingCart response ->',
       response_shoppingcart,
     );
+
+    // Guardar en la bd
+    response_shoppingcart.save();
+
+    return response_shoppingcart;
+  }
+
+  // FUNCION añadir un item al carrito
+  async add_product_shoppingCart(
+    shoppingCart_id: string,
+    product_data: Product_Item_DTO,
+  ) {
+    // buscar carrito por id
+    const response_shoppingcart = await this.shoppingCartModel.findById(
+      shoppingCart_id,
+    );
+
+    response_shoppingcart.items.push(product_data);
+
+    response_shoppingcart.subtotal = await this.calculate_subtotal(
+      response_shoppingcart,
+    );
+
+    console.log(
+      '<- ShoppingCart_Service, add product to ShoppingCart response ->',
+      response_shoppingcart,
+    );
+
+    // Guardar en la bd
     response_shoppingcart.save();
 
     return response_shoppingcart;
