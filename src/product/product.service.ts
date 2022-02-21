@@ -69,7 +69,11 @@ export class Product_Service {
   async find_byID(product_id: string | number) {
     try {
       //buscar en bd
-      const response_byID = await this.productModel.findById(product_id);
+      const response_byID = await this.productModel
+        .findById(product_id)
+        .populate('category')
+        .populate('tags')
+        .exec();
 
       console.log(
         '\n\n\n<- Product_Service, get product by id response ->',
