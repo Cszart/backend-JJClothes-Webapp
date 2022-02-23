@@ -28,6 +28,7 @@ export class Auth_Service {
   // FUNCION para loguear a un usuario y retornar un token
   async login(user: User_Type) {
     const payload = { email: user.email, sub: user._id };
+
     return {
       access_token: this.jwtService.sign(payload),
       ...user,
