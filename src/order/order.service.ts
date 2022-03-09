@@ -101,7 +101,10 @@ export class Order_Service {
   // FUNCION obtener todos los orderos
   async find_all() {
     // buscar en bd
-    const response_getAll = await this.orderModel.find().exec();
+    const response_getAll = await this.orderModel
+      .find()
+      .populate('items.product')
+      .exec();
 
     console.log('<- Order_Service, get all order response ->', response_getAll);
     return response_getAll;
@@ -133,7 +136,7 @@ export class Order_Service {
     try {
       const response_by_date = await this.orderModel
         .find({
-          purchase_date: { $gte: new Date(startDate), $lt: new Date(endDate) },
+          purchase_date: { $gte: new Date(startDate), $lte: new Date(endDate) },
         })
         .exec();
 

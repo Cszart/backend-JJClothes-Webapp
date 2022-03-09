@@ -28,6 +28,13 @@ import { Tag_Controller } from 'src/tag/tag.controller';
 import { Tag_Schema } from 'src/tag/tag.model';
 import { Tag_Service } from 'src/tag/tag.service';
 
+// Order
+import { Order_Controller } from 'src/order/order.controller';
+import { Order_Schema } from 'src/order/order.model';
+import { Order_Service } from 'src/order/order.service';
+import { Report_Controller } from './reports.controller';
+import { Report_Service } from './reports.service';
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -36,21 +43,26 @@ import { Tag_Service } from 'src/tag/tag.service';
       { name: 'Product', schema: Product_Schema },
       { name: 'Category', schema: Category_Schema },
       { name: 'Tag', schema: Tag_Schema },
+      { name: 'Order', schema: Order_Schema },
     ]),
   ],
   controllers: [
+    Report_Controller,
     User_Controller,
     ShoppingCart_Controller,
     Product_Controller,
     Tag_Controller,
     Category_Controller,
+    Order_Controller,
   ],
   providers: [
+    Report_Service,
     User_Service,
     ShoppingCart_Service,
     Product_Service,
     Tag_Service,
     Category_Service,
+    Order_Service,
   ],
 })
 export class Reports_Module {}

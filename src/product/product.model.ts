@@ -53,7 +53,7 @@ export class Product_Item_DTO extends mongoose.Document {
   quantity: number;
 
   // Relations
-  product: string;
+  product: string | Product_DTO;
 }
 
 // Para las querys
