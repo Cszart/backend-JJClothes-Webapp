@@ -28,22 +28,22 @@ export class Bank_Service {
   async create_bank_response(key: string) {
     console.log('\n\n\n\n<- Bank service, create bank key ->', key);
 
-    const decrypt_key = await this.decrypt(key);
+    // const decrypt_key = await this.decrypt(key);
 
-    const newBank_response = new this.bankModel({
-      ...decrypt_key,
-      date: new Date(),
-    });
+    // const newBank_response = new this.bankModel({
+    //   ...decrypt_key,
+    //   date: new Date(),
+    // });
 
-    const response_insert = await newBank_response.save();
+    // const response_insert = await newBank_response.save();
 
-    console.log('<- Bank service, create bank decrypt key ->', decrypt_key);
-    console.log(
-      '<- Bank service, create bank response ->',
-      response_insert,
-      '\n\n\n',
-    );
-    return response_insert;
+    // console.log('<- Bank service, create bank decrypt key ->', decrypt_key);
+    // console.log(
+    //   '<- Bank service, create bank response ->',
+    //   response_insert,
+    //   '\n\n\n',
+    // );
+    return key;
   }
 
   // FUNCION - obtener todas las respuestas

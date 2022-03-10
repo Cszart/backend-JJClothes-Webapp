@@ -15,9 +15,9 @@ export class Bank_Controller {
   // Add Bank response
   @Post('/create_bank_response')
   @ApiCreatedResponse({ description: 'Recieve response of bank for payment' })
-  async create_bank_response(@Body() data: Bank_DTO) {
-    const add_response = await this.bank_service.create_bank_response(data.key);
-    return add_response;
+  async create_bank_response(@Body() data: any) {
+    console.log('\n\n\n\n\n', data);
+    return data;
   }
 
   // Get all bank responses
