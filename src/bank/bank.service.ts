@@ -31,7 +31,11 @@ export class Bank_Service {
     const decrypt_key = await this.decrypt(key);
 
     const newBank_response = new this.bankModel({
-      ...decrypt_key,
+      transaction_number: decrypt_key.transaction_number,
+      order: decrypt_key.order,
+      reason: decrypt_key.reason,
+      amount: decrypt_key.amount,
+      status: decrypt_key.status,
       date: new Date(),
     });
 
