@@ -12,6 +12,7 @@ import {
 import { Bank_DTO } from './bank.model';
 import { Bank_Service } from './bank.service';
 
+///// Custom decorator /////
 import {
   createParamDecorator,
   ExecutionContext,
@@ -41,8 +42,8 @@ export class Bank_Controller {
   @ApiConsumes('text/plain')
   @ApiCreatedResponse({ description: 'Recieve response of bank for payment' })
   async create_bank_response(@PlainBody() data: string) {
-    console.log('\n\n\n\n\n', data);
-    return data;
+    const create_response = this.bank_service.create_bank_response(data);
+    return create_response;
   }
 
   // Get all bank responses
