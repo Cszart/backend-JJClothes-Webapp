@@ -15,6 +15,7 @@ import { ShoppingCart_Module } from './shopping_cart/shoppingCart.module';
 import { Order_Module } from './order/order.module';
 import { Auth_Module } from './auth/auth.module';
 import { Reports_Module } from './reports/reports.module';
+import { Bank_Module } from './bank/bank.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { Reports_Module } from './reports/reports.module';
     Order_Module,
     Auth_Module,
     Reports_Module,
+    Bank_Module,
   ],
 })
 export class AppModule {}
