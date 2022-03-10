@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Bank_BD_DTO } from './bank.model';
+import { Bank_BD_DTO, Status_Transaction } from './bank.model';
 
 @Injectable()
 export class Bank_Service {
@@ -29,6 +29,10 @@ export class Bank_Service {
     console.log('\n\n\n\n<- Bank service, create bank key ->', key);
 
     const decrypt_key = await this.decrypt(key);
+
+    if (decrypt_key.status == Status_Transaction.APPROVED) {
+      console.log('\n\n\n\n<- Bank service, APPROVED ->', decrypt_key.status);
+    }
 
     const newBank_response = new this.bankModel({
       transaction_number: decrypt_key.transaction_number,
