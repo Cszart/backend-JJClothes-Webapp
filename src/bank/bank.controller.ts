@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 
 // User
-import { Bank_DTO } from './bank.model';
+import { Bank_Active_DTO } from './bank.model';
 import { Bank_Service } from './bank.service';
 
 ///// Custom decorator /////
@@ -52,5 +52,24 @@ export class Bank_Controller {
   async get_all_responses() {
     const all_response = await this.bank_service.get_bank_responses();
     return all_response;
+  }
+
+  // Add shoppingCart
+  @Post('/change_active_bank')
+  @ApiCreatedResponse({ description: 'Change active bank on bd' })
+  async create_shoppingCart(@Body() data: Bank_Active_DTO) {
+    const change_response = await this.bank_service.change_active_bank(
+      data.name,
+    );
+
+    return change_response;
+  }
+
+  // Get all bank responses
+  @Get('/get_active_bank')
+  @ApiOkResponse({ description: 'Get all responses in bd' })
+  async get_active_bank() {
+    const active_response = await this.bank_service.get_active_bank();
+    return active_response;
   }
 }

@@ -1,5 +1,9 @@
 import * as mongoose from 'mongoose';
 
+export const Bank_Active_Schema = new mongoose.Schema({
+  name: String,
+});
+
 export const Bank_Schema = new mongoose.Schema({
   transaction_number: Number,
   order: String,
@@ -9,6 +13,9 @@ export const Bank_Schema = new mongoose.Schema({
   date: Date,
 });
 
+export class Bank_Active_DTO extends mongoose.Document {
+  name: string;
+}
 export class Bank_DTO extends mongoose.Document {
   key: string;
 }
@@ -21,6 +28,10 @@ export class Bank_BD_DTO extends mongoose.Document {
   status: string;
   date: Date;
 }
+
+export type Bank_Active_Type = {
+  name: string;
+};
 
 export type Bank_Type = {
   order: string;
